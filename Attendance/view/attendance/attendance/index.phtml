@@ -1,0 +1,36 @@
+<?php
+// module/Attendance/view/attendance/attendance/index.phtml:
+
+$title = "Attendance";
+$this->headTitle($title);
+?>
+<h1 class="bottom-line"><?php echo $this->escapeHtml($title); ?></h1>
+<p>
+<a href="<?php echo $this->url('attendance', array('action'=>'add'));?>">Mark Attendance</a>    
+</p>
+
+<table class="table">
+<tr>
+    <th>Month</th>
+    <th>Punch In</th>
+    <th>Punch Out</th>
+    <th>Hours</th>
+    <th>&nbsp;</th>
+</tr>
+<?php foreach ($attendances as $attendance) { ?>
+<tr>
+    <td><?php echo date("F", mktime(0, 0, 0, $attendance->month, 10));?></td>
+    <td><?php echo date("F d,Y h:i:s A",  strtotime($this->escapeHtml($attendance->punch_in)));?></td>
+    <td><?php echo date("F d,Y h:i:s A",  strtotime($this->escapeHtml($attendance->punch_out)));?></td>
+    <td><?php echo $this->escapeHtml($attendance->hours);?></td>
+    <td>
+        <a href="<?php echo $this->url('attendance',
+            array('action'=>'edit', 'id' => $attendance->id));?>">Edit</a>
+        <a href="<?php echo $this->url('attendance',
+            array('action'=>'delete', 'id' => $attendance->id));?>">Delete</a>
+    </td>
+</tr>
+<?php } ?>
+</table>
+<script language=""></script>
+    

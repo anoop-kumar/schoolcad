@@ -1,0 +1,43 @@
+<?php
+// module/Attendance/view/attendance/attendance/edit.phtml:
+
+$title = 'Add Attendance';
+$this->headTitle($title);
+?>
+<h3><?php echo $this->escapeHtml($title); ?></h3>
+
+<?php
+$form = $this->form;
+$form->setAttribute('action', $this->url(
+    'attendance',
+    array(
+        'action' => 'add',        
+    )
+));
+
+$form->prepare();
+
+echo $this->form()->openTag($form);
+
+foreach ($form as $element) :
+   // print_r($element);
+if($element->getAttribute('type') == "hidden"){
+    echo $this->formElement($element);
+    continue;
+}
+?>
+<div class="control-group <?php if($this->formElementErrors($element))  echo "error" ?>">
+  <?php if($element->getOption('label') || $element->getLabel()){?>
+    <label class="control-label"><?php echo $element->getLabel() ?></label>
+  <?php }?>
+    <div class="controls">
+        <?php echo $this->formElement($element);
+        if($this->formElementErrors($element)){ ?>
+              <span class="help-inline"><?php echo $this->formElementErrors($element) ?></span>
+        <?php }?>      
+    </div>
+</div>
+
+<?php
+endforeach;
+echo $this->form()->closeTag($form); ?>
